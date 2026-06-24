@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber System Interface - Bug WA by:wariorz</title>
+    <style>
+        /* Base & Reset Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Share Tech Mono', 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: #030108;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            background-image: radial-gradient(circle, #1a0b2e 0%, #05020a 100%);
+            position: relative;
+        }
+
+        /* Class untuk menyembunyikan halaman */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Kontainer Utama (Panel) */
+        .cyber-panel {
+            width: 420px;
+            background: rgba(10, 5, 20, 0.85);
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            border-top: 4px solid #a855f7;
+            border-radius: 16px;
+            box-shadow: 0 0 40px rgba(138, 43, 226, 0.3), inset 0 0 15px rgba(138, 43, 226, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(15px);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Video Header di Bagian Atas Box Login */
+        .video-wrapper {
+            width: 100%;
+            height: 180px;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 2px solid #a855f7;
+        }
+
+        .video-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* object-position diatur 25% agar visual video bergeser agak ke atas */
+            object-position: center 55%; 
+            filter: hue-rotate(45deg) brightness(1.0);
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: ;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(138, 43, 226, 0.1), rgba(10, 5, 20, 1));
+            pointer-events: none;
+        }
+
+        /* Konten Dalam Form */
+        .form-content {
+            padding: 35px;
+        }
+
+        .brand-title {
+            color: #f3e8ff;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(168, 85, 247, 0.8);
+        }
+
+        .credits {
+            color: #a855f7;
+            text-align: center;
+            font-size: 12px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            opacity: 0.8;
+        }
+
+        /* Gaya Input & Elemen Formulir */
+        .input-wrapper {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .input-wrapper label {
+            display: block;
+            color: #c084fc;
+            font-size: 11px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .input-wrapper input, .input-wrapper select {
+            width: 100%;
+            padding: 12px;
+            background: rgba(20, 10, 35, 0.6);
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            border-radius: 6px;
+            color: #ffffff;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-wrapper select option {
+            background: #120727;
+            color: #fff;
+        }
+
+        .input-wrapper input:focus, .input-wrapper select:focus {
+            border-color: #c084fc;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+        }
+
+        /* Tombol Utama */
+        .cyber-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(45deg, #6b21a8, #a855f7);
+            border: none;
+            border-radius: 6px;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .cyber-btn:hover {
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.8);
+            transform: translateY(-2px);
+        }
+
+        /* Tampilan Kotak Konsol Hasil */
+        .console-box {
+            margin-top: 20px;
+            background: rgba(5, 2, 10, 0.9);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 6px;
+            padding: 15px;
+            height: 110px;
+            overflow-y: auto;
+            font-size: 11px;
+            color: #a78bfa;
+        }
+
+        .console-line {
+            margin-bottom: 4px;
+        }
+
+        .system-status {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #6b21a8;
+            margin-top: 20px;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="page-login" class="cyber-panel">
+        <div class="video-wrapper">
+            <video autoplay loop muted playsinline>
+                <source src="anime.mp4" type="video/mp4">
+            </video>
+            <div class="video-overlay"></div>
+        </div>
+
+        <div class="form-content">
+            <div class="brand-title">Bug WA</div>
+            <div class="credits">by:wariorz</div>
+
+            <form onsubmit="handleLogin(event)">
+                <div class="input-wrapper">
+                    <label>Login_ID</label>
+                    <input type="text" required autocomplete="off" placeholder="Masukkan ID">
+                </div>
+                <div class="input-wrapper">
+                    <label>Access_Key</label>
+                    <input type="password" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="cyber-btn">Initialize</button>
+            </form>
+        </div>
+    </div>
+
+
+    <div id="page-dashboard" class="cyber-panel hidden">
+        <div class="form-content">
+            <div class="brand-title">BUG WA with phone numbers</div>
+            <div class="credits">DIAGNOSTIC SYSTEM</div>
+
+            <form onsubmit="runDiagnostic(event)">
+                <div class="input-wrapper">
+                    <label>Target phone numbers</label>
+                    <input type="text" id="target" placeholder="contoh: +6285643786433" required autocomplete="off">
+                </div>
+                
+                <div class="input-wrapper">
+                    <label>Pilih Komando Analisis</label>
+                    <select id="action">
+                        <option value="ping">delete all phone number (tnc)</option>
+                        <option value="trace">Lock whatsApp (Traceroute)</option>
+                        <option value="status">Crash whatsapp</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="cyber-btn">Mulai proses</button>
+            </form>
+
+            <div class="console-box" id="console">
+                <div class="console-line">> Sistem Terotentikasi. Masukkan parameter target...</div>
+            </div>
+
+            <div class="system-status">
+                <span>NODE: ONLINE</span>
+                <span style="color: #6b21a8; cursor: pointer;" onclick="logout()">[ KELUAR ]</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fungsi untuk mengontrol transisi perpindahan halaman
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            // Menyembunyikan Halaman Login, Membuka Halaman Dasbor
+            document.getElementById('page-login').classList.add('hidden');
+            document.getElementById('page-dashboard').classList.remove('hidden');
+        }
+
+        // Fungsi simulasi penulisan log konsol
+        function runDiagnostic(event) {
+            event.preventDefault();
+            const target = document.getElementById('target').value;
+            const action = document.getElementById('action').value;
+            const consoleBox = document.getElementById('console');
+            
+            consoleBox.innerHTML = "<div class='console-line'>> Menginisialisasi modul " + action.toUpperCase() + "...</div>";
+            
+            setTimeout(() => {
+                consoleBox.innerHTML += "<div class='console-line'>> Menghubungi gerbang data " + target + "...</div>";
+                consoleBox.scrollTop = consoleBox.scrollHeight;
+            }, 600);
+
+            setTimeout(() => {
+                if(action === 'ping') {
+                    consoleBox.innerHTML += "<div class='console-line' style='color:#34d399'>> Balasan dari " + target + ": waktu=12ms status=STABIL[on proces]</div>";
+                } else if(action === 'trace') {
+                    consoleBox.innerHTML += "<div class='console-line'>> Jalur paket: 10.0.0.1 -> 192.168.1.1 -> " + target + "</div>";
+                } else {
+                    consoleBox.innerHTML += "<div class='console-line' style='color:#34d399'>> Hasil: Port operasional standar terbuka aman.</div>";
+                }
+                consoleBox.innerHTML += "<div class='console-line' style='color:#34d399'>> [PROSES SELESAI]</div>";
+                consoleBox.scrollTop = consoleBox.scrollHeight;
+            }, 1500);
+        }
+
+        // Fungsi untuk keluar dari dasbor kembali ke login
+        function logout() {
+            document.getElementById('page-dashboard').classList.add('hidden');
+            document.getElementById('page-login').classList.remove('hidden');
+            // Reset ulang teks konsol utama
+            document.getElementById('console').innerHTML = "<div class='console-line'>> Sistem Terotentikasi. Masukkan parameter target...</div>";
+        }
+    </script>
+</body>
+</html>
